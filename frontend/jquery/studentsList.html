@@ -5,65 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students List</title>
+    <link rel="stylesheet" href="css/studentsList.css">
 </head>
 <body>
-    <nav>
+    <nav class="main-nav">
         <header>
             Módulo Acadêmico
         </header>
-        <ul>
-            <li><a href="#">Alunos</a></li>
+        <ul class="nav-links">
+            <a class="nav-item" href="#">
+                <li>Alunos</li>
+            </a>
         </ul>
     </nav>
-    <section>
-        <header>
+    <section class="container">
+        <header class="main-header">
             Consulta de Alunos
         </header>
         <div class="content-page">
-            <form action="">
-                <input type="text" name="searchInput" id="searchInput">
-                <button>Pesquisar</button>
-            </form>
-            <button>Cadastrar Aluno</button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Registro Acadêmico</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1939</td>
-                        <td>Aluno um</td>
-                        <td>494.333.222-20</td>
-                        <td>
-                            <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3938</td>
-                        <td>Aluno dois</td>
-                        <td>494.333.112-20</td>
-                        <td>
-                            <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3383</td>
-                        <td>Aluno três</td>
-                        <td>494.333.124-20</td>
-                        <td>
-                            <a href="#">Editar</a>
-                            <a href="#">Excluir</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="padding-left-right-20">
+                <div class="top-actions">
+                    <form class="form-search" action="">
+                        <input type="text" name="searchInput" id="searchInput">
+                        <button>Pesquisar</button>
+                    </form>
+                    <button>Cadastrar Aluno</button>
+                </div>
+                <table class="table-list">
+                    <thead>
+                        <tr>
+                            <th>Registro Acadêmico</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1939</td>
+                            <td>Aluno um</td>
+                            <td>494.333.222-20</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3938</td>
+                            <td>Aluno dois</td>
+                            <td>494.333.112-20</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3383</td>
+                            <td>Aluno três</td>
+                            <td>494.333.124-20</td>
+                            <td>
+                                <a href="#">Editar</a>
+                                <a href="#">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </section>
