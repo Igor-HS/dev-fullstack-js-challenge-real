@@ -21,5 +21,11 @@ module.exports = [{
         email: "arthur@gmail.com",
         cpf: "949.383.254039",
         ra: "29193567232"
+    },
+    {
+        nome: "Gomes",
+        email: "gomes.augusto@gmail.com",
+        cpf: "949.383.254539",
+        ra: "29193667232"
     }
 ];
