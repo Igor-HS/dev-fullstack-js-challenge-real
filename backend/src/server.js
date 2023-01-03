@@ -11,14 +11,19 @@ app.get('/', function (req, res) {
 
 
 app.get("/students/list", function(req, res){
-  res.send(database);
+  setTimeout(function(){
+    res.send(database);
+  }, 2000);
 });
 
 app.get("/students/find/:ra", function(req, res){
   const stundetFound = database.find(function(stundent){
     return stundent.ra == req.params.ra;
   });
-  res.send(stundetFound);
+  setTimeout(function(){
+    res.send(stundetFound);
+  }, 2000);
+ 
 })
 
 app.listen(3000);
