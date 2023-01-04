@@ -11,10 +11,22 @@ app.get('/', function (req, res) {
 })
 
 
-app.get("/students/list", function(req, res){
+app.get("/students/list/:searchQuery?", function(req, res){
+
+  let result = database;
+  let search = req.params.searchQuery;
+
+  if(search){
+    search = search.toLowerCase();
+    result = result.filter((student)=>{
+      return student.ra == search || student.nome.toLowerCase().indexOf(search) != -1 || student.cpf == search;
+    })
+  }
+
   setTimeout(function(){
-    res.send(database);
+    res.send(result);
   }, 2000);
+
 });
 
 app.get("/students/find/:ra", function(req, res){

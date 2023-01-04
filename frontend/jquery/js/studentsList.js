@@ -5,10 +5,14 @@ $(document).ready(function(){
         const confirmation = confirm("Você realmente deseja excluir esse estudante?");
         
         if(confirmation){
-            alert("Devemos excluir!")
             deleteStudent(ra);
         }
         
+    });
+
+    $("#formSearchStudent").submit((event)=>{
+        event.preventDefault();
+        fetchStudentsList(event.target.searchInput.value);        
     });
 });
 
@@ -20,15 +24,14 @@ const deleteStudent = (ra) => {
         }).then((data)=>{
             alert(data.message);
             fetchStudentsList();
-            console.log(data);
         });
 }
 
-function fetchStudentsList(){
+function fetchStudentsList(searchQuery = ''){
     $(".loader").show("fast");
     $(".content-page").hide("fast");
 
-    fetch('http://localhost:3000/students/list')
+    fetch(`http://localhost:3000/students/list/${searchQuery}`)
     .then(function(response){
         return response.json();
     })

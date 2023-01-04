@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     if(isEditingMode()){
+        setReadOnlyFields();
         fetchStudent();
     }else{
         $(".loader").hide("fast");
@@ -43,6 +44,15 @@ $(document).ready(function(){
         })        
     })    
 });
+
+function setReadOnlyFields(){
+    const studentForm = $("#studentForm");
+    studentForm.find("#ra").attr('readonly', true);
+    studentForm.find("#ra").css('background-color', '#dddddd');
+    studentForm.find("#cpf").attr('readonly', true);
+    studentForm.find("#cpf").css('background-color', '#dddddd');
+
+}
 
 function fetchStudent(){
   
