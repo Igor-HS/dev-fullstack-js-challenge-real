@@ -34,8 +34,27 @@ app.post("/students/save", (req, res)=>{
     email: req.body.email,
     cpf: req.body.cpf,
   })
-  res.send({result: true, message: "deu bom!"})
+  res.send({result: true, message: "O Estudante foi adicionado com sucesso!"})
 
+})
+
+app.put("/students/edit/:ra", (req, res)=>{
+  
+  database = database.filter((student)=>{
+    return student.ra != req.params.ra
+  })
+
+  database.push({
+    nome: req.body.name,
+    ra: req.body.ra,
+    email: req.body.email,
+    cpf: req.body.cpf,
+  })
+
+  res.send({
+    result: true,
+    message: "O estudante foi atualizado com sucesso!"
+  });
 })
 
 app.delete("/students/delete/:ra", (req, res) =>{

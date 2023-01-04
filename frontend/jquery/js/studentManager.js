@@ -1,9 +1,7 @@
 $(document).ready(function(){
 
-    const urlSearch = new URLSearchParams(window.location.search);
-    const ra = urlSearch.get('ra');
-    if(ra){
-        fetchStudent(ra);
+    if(isEditingMode()){
+        fetchStudent();
     }else{
         $(".loader").hide("fast");
         $(".content-page").show("slow");
@@ -17,8 +15,20 @@ $(document).ready(function(){
             cpf: $(this).find("#cpf").val(),
             email:event.target.email.value
         };
-        fetch('http://localhost:3000/students/save', {
-            method: 'POST',
+
+        let methodEndpoint;
+        let urlEndpoint;
+
+        if(isEditingMode){
+            methodEndpoint = 'PUT';
+            urlEndpoint = `http://localhost:3000/students/edit/${getRAFromURL()}`;
+        }else{
+            methodEndpoint = 'POST';
+            urlEndpoint = 'http://localhost:3000/students/save';
+        }
+
+        fetch(urlEndpoint, {
+            method: methodEndpoint,
             body: JSON.stringify(body),
             headers : {
                 Accept: "application/json",
@@ -30,15 +40,13 @@ $(document).ready(function(){
             alert(data.message);
             document.location.href = 'studentsList.html';
             console.log(data);
-        })
-    })
-    
+        })        
+    })    
 });
 
-function fetchStudent(ra){
-
+function fetchStudent(){
   
-    fetch(`http://localhost:3000/students/find/${ra}`).then(function(response){
+    fetch(`http://localhost:3000/students/find/${getRAFromURL()}`).then(function(response){
         return response.json();
     }).then(function(data){
 
@@ -53,4 +61,14 @@ function fetchStudent(ra){
         $(".content-page").show("slow");
     })
     
+}
+
+function isEditingMode(){
+    const urlSearch = new URLSearchParams(window.location.search);
+    return urlSearch.has('ra');
+}
+
+function getRAFromURL(){
+    const urlSearch = new URLSearchParams(window.location.search);
+    return urlSearch.get('ra');
 }
