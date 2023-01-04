@@ -14,7 +14,24 @@ body{
     height: 40px;
     padding-left: 20px;
     padding-right: 20px;
-    font-weight: bold; 
+    text-decoration: none;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+}
+
+.btn.btn-dark{
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+}
+
+.btn.btn-warning{
+    color: #000;
+    background-color: #ffc107;
+    border-color: #ffc107;
 }
 
 .margin-left-10{
