@@ -27,125 +27,127 @@ module.exports = class StudentsController {
           })
     }
 
+    isCreateDataValid = async (data) => {
+      if(data.name == ""){
+        return "O nome é um campo obrigatório";
+      }
 
-    createAction = async (req,res) => {
-        if(req.body.name == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O nome é um campo obrigatório!"
-            });
-          }
-          if(req.body.email == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O email é um campo obrigatório!"
-            });
-          }
-          if(req.body.ra == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O ra é um campo obrigatório!"
-            });
-          }
-          if(req.body.cpf == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O cpf é um campo obrigatório!"
-            });
-          }
-        
-          // validando se é realmente inteiro
-          if(parseInt(req.body.ra) != req.body.ra){
-            return res.status(400).send({
-              result: false,
-              message: "O RA deve ser um numero inteiro!"
-            });
-          }
-        
-          if(parseInt(req.body.cpf) != req.body.cpf){
-            return res.status(400).send({
-              result: false,
-              message: "O CPF deve ser um numero inteiro!"
-            });
-        
-          }
-          
-          const userExists = await this.app.database("students").select().where({
-            ra: req.body.ra
-          }).first();
-        
-          if(userExists){
-            return res.status(400).send({
-              result: false,
-              message: "Desculpe, mas já existe um estudante cadastrado com esse RA."
-            })
-          }
-        
-          console.log(userExists);
-        
-          return this.app.database("students").insert({
-            nome: req.body.name,
-            ra: req.body.ra,
-            email: req.body.email,
-            cpf: req.body.cpf,
-          }).then((response)=>{
-            if(response){
-              res.send({
-                result: true,
-                message:`O estudante foi cadastrado com sucesso!`
-              });
-            }else{
-              res.status(500).send({
-                result: false,
-                message:`Não foi possível cadastrar o estudante.`
-              });
-            }
-          })
+      if(data.email == ""){
+        return "O email é um campo obrigatório!";
+      }
 
+      if(data.ra == ""){
+        return "O ra é um campo obrigatório!"
+      }
+
+      if(data.cpf == ""){
+        return "O cpf é um campo obrigatório!"
+      }
+    
+      // validando se é realmente inteiro
+      if(parseInt(data.ra) != data.ra){
+        return "O RA deve ser um numero inteiro!"
+      }
+    
+      if(parseInt(data.cpf) != data.cpf){
+        return "O CPF deve ser um numero inteiro!"
+      }
+
+      const userExists = await this.app.database("students").select().where({
+        ra: data.ra
+      }).first();
+
+      if(userExists){
+        return "Desculpe, mas já existe um estudante cadastrado com esse RA.";
+      }    
+
+      return true;
     }
 
 
-    editAction = async (req,res) => {
-        if(req.body.name == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O nome é um campo obrigatório!"
-            });
-          }
-          if(req.body.email == ""){
-            return res.status(400).send({
-              result: false,
-              message: "O email é um campo obrigatório!"
-            });
-          }
+    createAction = async (req,res) => {         
+
+      const isCreateDataValid = await this.isCreateDataValid(req.body);
+
+      if(isCreateDataValid != true ){
+        return res.status(400).send({
+          result: false,
+          message: isCreateDataValid
+        })
+      }
+      
         
-          const userFound = await this.app.database("students").select().where({ra: req.params.ra}).first();
-        
-          if(!userFound){
-            return res.status(400).send({
-              result: false,
-              message: "O estudante informado não existe"
-            })
-          }
-        
-          const studentUpdate = await this.app.database("students").update({
-            email: req.body.email,
-            nome: req.body.name
-          }).where({
-            ra: req.params.ra
+      return this.app.database("students").insert({
+        nome: req.body.name,
+        ra: req.body.ra,
+        email: req.body.email,
+        cpf: req.body.cpf,
+      }).then((response)=>{
+        if(response){
+          res.send({
+            result: true,
+            message:`O estudante foi cadastrado com sucesso!`
           });
-        
-          if(studentUpdate){
-            res.send({
-              result: true,
-              message: "O estudante foi atualizado com sucesso!"
-            });
           }else{
             res.status(500).send({
               result: false,
-              message: "Desculpa, mas não conseguimos atualizar o estudante!"
+              message:`Não foi possível cadastrar o estudante.`
             });
-          }   
+          }
+        })
+    }
+
+
+    isEditDataValid = (data) => {
+      if(data.name == ""){
+        return "O nome é um campo obrigatório!"
+      }
+
+      if(data.email == ""){
+        return "O email é um campo obrigatório!"
+      }
+    
+      return true;
+    }
+
+    editAction = async (req,res) => {
+        
+      const isEditDataValid = this.isEditDataValid(req.body);
+
+      if(isEditDataValid != true){
+        return res.status(400).send({
+          result: false,
+          message: isEditDataValid
+        })
+      }
+
+      const userFound = await this.app.database("students").select().where({ra: req.params.ra}).first();
+        
+      if(!userFound){
+        return res.status(400).send({
+          result: false,
+          message: "O estudante informado não existe"
+        })
+      }
+        
+      const studentUpdate = await this.app.database("students").update({
+        email: req.body.email,
+        nome: req.body.name
+      }).where({
+        ra: req.params.ra
+      });
+        
+      if(studentUpdate){
+        res.send({
+          result: true,
+          message: "O estudante foi atualizado com sucesso!"
+        });
+      }else{
+        res.status(500).send({
+          result: false,
+          message: "Desculpa, mas não conseguimos atualizar o estudante!"
+        });
+      }   
     }
 
     deleteAction = (req,res) => {
