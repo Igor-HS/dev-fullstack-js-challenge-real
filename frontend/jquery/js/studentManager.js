@@ -39,7 +39,10 @@ $(document).ready(function(){
             return response.json();
         }).then((data)=>{
             alert(data.message);
-            document.location.href = 'studentsList.html';
+            if(data.result){
+                document.location.href = 'studentsList.html';
+            }
+            
         })        
     })    
 });
