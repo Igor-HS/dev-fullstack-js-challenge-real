@@ -20,12 +20,12 @@ $(document).ready(function(){
         let methodEndpoint;
         let urlEndpoint;
 
-        if(isEditingMode){
+        if(isEditingMode()){
             methodEndpoint = 'PUT';
             urlEndpoint = `http://localhost:3000/students/edit/${getRAFromURL()}`;
         }else{
             methodEndpoint = 'POST';
-            urlEndpoint = 'http://localhost:3000/students/save';
+            urlEndpoint = "http://localhost:3000/students/save";
         }
 
         fetch(urlEndpoint, {
