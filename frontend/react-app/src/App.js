@@ -1,4 +1,5 @@
-import Navbar from './components/Navbar';
+import Navbar from './components/shared/Navbar';
+import StudentListPage from './components/pages/StudentsListPage';
 import './App.css';
 
 function App() {
@@ -6,34 +7,14 @@ function App() {
     <div className="main-container">
 
       <Navbar />
-      <section class="container">
-          <header class="main-header">
+      <section className="container">
+          <header className="main-header">
               Consulta de Alunos
           </header>
-          <div class="loader"></div>
-          <div class="content-page display-none">
-              <div class="padding-left-right-20">
-                  <div class="top-actions">
-                      <form id="formSearchStudent" class="form-search">
-                          <input type="text" name="searchInput" id="searchInput"/>
-                          <button>Pesquisar</button>
-                      </form>
-                      <a class="btn btn-dark" href="studentManager.html">Cadastrar Aluno</a>
-                  </div>
-                  <table id="studentList" class="table-list">
-                      <thead>
-                          <tr>
-                              <th>Registro Acadêmico</th>
-                              <th>Nome</th>
-                              <th>CPF</th>
-                              <th>Ações</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          
-                      </tbody>
-                  </table>
-              </div>
+          <div className="loader"></div>
+          <div className="content-page">
+            <StudentListPage />
+              
 
           </div>
       </section>
