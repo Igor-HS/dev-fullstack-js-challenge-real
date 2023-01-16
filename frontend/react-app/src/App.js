@@ -11,7 +11,6 @@ function App() {
           <header className="main-header">
               Consulta de Alunos
           </header>
-          <div className="loader"></div>
           <div className="content-page">
             <StudentListPage />
               
