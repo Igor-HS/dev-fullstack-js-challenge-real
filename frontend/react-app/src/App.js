@@ -15,8 +15,13 @@ function App() {
 
                 <Route path='/' element={ <StudentListPage /> } />
                 <Route path='/student/add' element={ <StudentManagerPage /> }/>
-                <Route path='/student/edit/:ra' element={ <StudentManagerPage /> }/>
-                
+                <Route path='/student/edit/:id' element={ <StudentManagerPage /> }/>
+                <Route path='*' element={
+                  <div className='content-page padding-left-right-20'>
+                    <h1>Error 404</h1>
+                    <p>Desculpe, mas não conseguimos encontrar a página que você solicitou!</p>
+                  </div>
+                }/>
               </Routes>
             </div>
         </section>
