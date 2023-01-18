@@ -3,6 +3,7 @@ import StudentListPage from './components/pages/StudentsListPage';
 import StudentManagerPage from './components/pages/StudentsManagerPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import NotFoundPage from './components/pages/NotFoundPage';
 
 function App() {
   return (
@@ -16,12 +17,7 @@ function App() {
                 <Route path='/' element={ <StudentListPage /> } />
                 <Route path='/student/add' element={ <StudentManagerPage /> }/>
                 <Route path='/student/edit/:id' element={ <StudentManagerPage /> }/>
-                <Route path='*' element={
-                  <div className='content-page padding-left-right-20'>
-                    <h1>Error 404</h1>
-                    <p>Desculpe, mas não conseguimos encontrar a página que você solicitou!</p>
-                  </div>
-                }/>
+                <Route path='*' element={ <NotFoundPage /> }/>
               </Routes>
             </div>
         </section>
