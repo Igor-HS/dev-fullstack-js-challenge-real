@@ -2,6 +2,7 @@ import "./style.css"
 import { useState, useEffect } from "react";
 import Loader from "../../shared/Loader";
 import {Link, Navigate, useParams} from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const StudentManagerPage = () => {
 
@@ -14,8 +15,17 @@ const StudentManagerPage = () => {
 
     const [name, updateName] = useState("");
     const [email, updateEmail] = useState("");
-    const [cpf, updateCpf] = useState("");
-    const [ra, updateRa] = useState("");
+
+    const [fieldCpf, updateFieldCpf] = useState({
+        value:"",
+        isReadOnly: false,
+    })
+
+    const [fieldRa, updateFieldRa] = useState({
+        value: "",
+        isReadOnly: false
+    })
+
 
     const fetchStudent = () => {
         
@@ -27,8 +37,14 @@ const StudentManagerPage = () => {
 
             updateName(data.nome);
             updateEmail(data.email);
-            updateCpf(data.cpf);
-            updateRa(data.ra);
+            updateFieldCpf({
+                isReadOnly: true,
+                value: data.cpf,
+            });
+            updateFieldRa({
+                isReadOnly: true,
+                value: data.ra,
+            })
 
             updateIsLoading(false);
         })
@@ -47,8 +63,8 @@ const StudentManagerPage = () => {
         event.preventDefault();
         const body = {
             name,
-            ra,
-            cpf,
+            ra: fieldRa.value,
+            cpf: fieldCpf.value,
             email
         };
 
@@ -73,9 +89,11 @@ const StudentManagerPage = () => {
         }).then((response)=>{
             return response.json();
         }).then((data)=>{
-            alert(data.message);
             if(data.result){
+                Swal.fire("Sucesso!",data.message, "success");
                 setIsRedirect(true);
+            }else{
+                Swal.fire("Desculpe...",data.message, "error");
             }
             
         })
@@ -116,18 +134,24 @@ const StudentManagerPage = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="ra">RA</label>
-                    <input required type="number" name="ra" id="ra" value={ra}
+                    <input required type="number" name="ra" id="ra" value={fieldRa.value}
+                    readOnly={fieldRa.isReadOnly}
                     placeholder="Digite o seu ra"
                     onChange={(event)=>{
-                        updateRa(event.target.value);
+                        updateFieldRa({
+                            ...fieldRa,
+                            value: event.target.value});
                     }}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="cpf">CPF</label>
-                    <input required type="number" name="cpf" id="cpf" value ={cpf}
+                    <input required type="number" name="cpf" id="cpf" value ={fieldCpf.value}
+                    readOnly={fieldCpf.isReadOnly}
                     placeholder="Digite o seu cpf"
                     onChange={(event)=>{
-                        updateCpf(event.target.value);
+                        updateFieldCpf({
+                            ...fieldCpf,
+                            value: event.target.value});
                     }}/>
                 </div>
                 <div className="actions">

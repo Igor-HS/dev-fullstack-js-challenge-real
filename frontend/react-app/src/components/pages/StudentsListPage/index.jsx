@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import Loader from "../../shared/Loader";
 import {Link} from "react-router-dom";
+import Swal from 'sweetalert2';
 
 class StudentListPage extends React.Component {
 
@@ -22,11 +23,20 @@ class StudentListPage extends React.Component {
 
 
     onClickRemoveStudent = (ra) => {
-        const confirmation = window.confirm("Você realmente deseja excluir esse estudante?");
-        
-        if(confirmation){
-            this.deleteStudent(ra);
-        }
+
+        Swal.fire({
+            title: 'Você realmente deseja excluir esse estudante?',
+            text: "Você não será capaz de reverter isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                this.deleteStudent(ra);
+            }
+        })
     }
 
     deleteStudent = (ra) => {
@@ -36,7 +46,13 @@ class StudentListPage extends React.Component {
             }).then((response)=>{
                 return response.json();
             }).then((data)=>{
-                alert(data.message);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Estudante excluído',
+                    text: data.message,
+                })
+
                 this.fetchStudentsList();
             });
     }
