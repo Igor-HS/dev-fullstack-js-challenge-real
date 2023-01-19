@@ -1,7 +1,11 @@
-.content-page .top-actions {
+.content-page .card {
     margin-top: 20px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
 }
   
 .content-page .table-list {
@@ -9,18 +13,54 @@
     width: 100%;
     text-align: center;
     border-collapse: collapse;
-    border: 1px solid #dee2e6;
 }
   
 .content-page .table-list thead tr{
     height: 50px;
-    background-color: skyblue;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 3px solid #e9ecef;
 }
   
 .content-page .table-list tbody tr{
     height: 40px;
+    border-top: 1px solid #e9ecef;
 }
   
-.content-page .table-list tbody tr:nth-child(even){
-    background-color: #ccc;
+.content-page .table-list tbody tr:nth-child(odd){
+    background-color: rgba(0,0,0,0.03);
+}
+
+.content-page .table-list .action-link {
+    text-transform: lowercase;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.content-page .form-search{
+    height: 40px;
+    border: 1px solid #ced4da;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+
+}
+
+.content-page .form-search input{
+    border: none;
+    height: 100%;
+    box-sizing: border-box; 
+    width: 100%;
+
+}
+
+.content-page .form-search button{
+    border: none;
+    border-left: 1px solid #ced4da;
+    height: 100%;
+    width: 140px;
+}
+
+.content-page .form-search button:hover{
+    cursor: pointer;
+    background-color: #e6e4e4;
 }

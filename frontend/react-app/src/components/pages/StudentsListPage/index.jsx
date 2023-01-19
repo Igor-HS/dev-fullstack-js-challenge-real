@@ -90,12 +90,13 @@ class StudentListPage extends React.Component {
         return (
             <>
             <header className="main-header">
-                Lista de Alunos
+                <span>Lista de Alunos</span>
             </header>
             <div className="padding-left-right-20">            
-                <div className="top-actions">
+                <div className="card">
                     <form onSubmit= { this.onSubmitFormSearch } id="formSearchStudent" className="form-search">
-                        <input type="text" name="searchInput" id="searchInput" 
+                        <input type="text" name="searchInput" id="searchInput"
+                        placeholder="Pesquisar"
                         value={this.state.formSearch.searchInput}
                         onChange={(event)=>{
                             this.setState({
@@ -111,33 +112,35 @@ class StudentListPage extends React.Component {
                     Cadastrar Aluno
                     </Link>
                 </div>
-                <table id="studentList" className="table-list">
-                    <thead>
-                        <tr>
-                            <th>Registro Acadêmico</th>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.studentsList.map((student) => {
-                            return (
-                                <tr key={student.ra}>
-                                    <td>{student.ra}</td>
-                                    <td>{student.nome}</td>
-                                    <td>{student.cpf}</td>
-                                    <td>
-                                        <Link to={`/student/edit/${student.ra}`}>
-                                            Editar
-                                        </Link>
-                                        <a className="removeStudent" onClick={() => {this.onClickRemoveStudent(student.ra)}} href="/#">Excluir</a>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <div className="card">
+                    <table id="studentList" className="table-list">
+                        <thead>
+                            <tr>
+                                <th>Registro Acadêmico</th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.studentsList.map((student) => {
+                                return (
+                                    <tr key={student.ra}>
+                                        <td>{student.ra}</td>
+                                        <td>{student.nome}</td>
+                                        <td>{student.cpf}</td>
+                                        <td>
+                                            <Link className="action-link" to={`/student/edit/${student.ra}`}>
+                                                Editar
+                                            </Link>
+                                            <a className="removeStudent action-link" onClick={() => {this.onClickRemoveStudent(student.ra)}} href="/#">Excluir</a>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             </>
         );

@@ -110,7 +110,7 @@ const StudentManagerPage = () => {
     return (
         <>
         <header className="main-header">
-            Cadastrar/Editar Aluno
+            <span>Cadastrar/Editar Aluno</span>
         </header>
         
         <div className="content-page padding-left-right-20"> 
