@@ -25,12 +25,13 @@ body {
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
+  background-color: #f0f0f0;
 }
 
 
 .btn:hover {
-  border: 1px solid black;
   cursor: pointer;
+  background-color: #e6e4e4;
 }
 
 .btn.btn-dark{
